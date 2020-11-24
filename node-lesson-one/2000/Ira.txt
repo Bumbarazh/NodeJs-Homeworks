@@ -1,0 +1,4 @@
+const IRA = {
+  gender: female,
+  age: 23,
+}

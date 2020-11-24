@@ -1,0 +1,4 @@
+const IVAN = {
+  gender: male,
+  age: 27,
+}
