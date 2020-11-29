@@ -11,7 +11,17 @@
 <body>
     <img alt="node logo" id="node-logo" src="images/nodejs-logo.png">
     <h1>Error</h1>
-    <h3>You are not logged in or registered</h3>
+    <div class="error">
+        {{#if isUserEmailInFile}}
+            <p>{{messageToLogin}} <a href="/login">log in</a></p>
+        {{/if}}
+        {{#if isEmailInFile}}
+            <p>{{messageToRegister}} <a href="/register">register</a></p>
+        {{/if}}
+        {{#if isUserLogin}}
+            <p>{{messageToLogOrReg}}<a href="/login">log in</a> or <a href="/register">register</a></p>
+        {{/if}}
+    </div>
     <a class="btn" href="/">Go to main page</a>
 </body>
 </html>
