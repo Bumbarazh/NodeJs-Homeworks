@@ -1,0 +1,33 @@
+body {
+    background: #f1f1f1;
+    font-family: 'Roboto', sans-serif;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    margin: 0 auto;
+}
+#node-logo {
+    max-width: 70px;
+    text-align: center;
+    margin: 20px auto 0;
+}
+h1 {
+    color:red;
+}
+.error {
+    color: red;
+}
+.btn {
+    background: #4CAF50;
+    padding: 5px 60px;
+    font-size: 1.3rem;
+    border: 0;
+    border-radius: 5px;
+    text-decoration: none;
+    max-width: 180px;
+    margin: 0 auto;
+}
+.btn:hover {
+    background: #3e8e41;
+}
