@@ -66,12 +66,34 @@ module.exports = {
             }
 
             if (!isUserLoggedIn) {
-                throw new Error('User can\'t remove, he is not loggid in.');
+                throw new Error('User can\'t remove, he is not logged in.');
             }
 
             removeUserByEmail(email);
 
             res.status(204).json('User deleted');
+        } catch (e) {
+            res.status(400).json(e.message);
+        }
+    },
+
+    logoutUserByEmail: (req, res) => {
+        try {
+            const { email } = req.params;
+
+            const user = findUserByEmail(email);
+
+            if (!user) {
+                throw new Error('User with this email is not found');
+            }
+
+            if (!isUserLoggedIn) {
+                throw new Error('User can\'t logout, he is not logged in.');
+            }
+
+            isUserLoggedIn = !isUserLoggedIn;
+
+            res.status(201).json('User is log out');
         } catch (e) {
             res.status(400).json(e.message);
         }
