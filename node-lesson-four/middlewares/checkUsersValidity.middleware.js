@@ -14,7 +14,7 @@ module.exports = {
 
             const user = await findUserByEmail(email);
 
-            if (user.email) {
+            if (user.length > 0) {
                 throw new Error('This user is already registered.');
             }
 
@@ -38,7 +38,7 @@ module.exports = {
 
             const user = await findUserById(id);
 
-            if (!user) {
+            if (user.length < 1) {
                 throw new Error('User with this id is not found');
             }
 
