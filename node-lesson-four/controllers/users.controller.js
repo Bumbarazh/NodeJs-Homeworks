@@ -1,7 +1,6 @@
 const {
     findAllUsers,
     insertUser,
-    findUserById,
     removeUserById,
     updateUser
 } = require('../services/users.service');
@@ -23,15 +22,9 @@ module.exports = {
         }
     },
 
-    getUserById: async (req, res) => {
+    getUserById: (req, res) => {
         try {
-            const { id } = req.params;
-
-            const user = await findUserById(id);
-
-            if (!user) {
-                throw new Error('User with this id is not found');
-            }
+            const { user } = req;
 
             res.status(302).json(user);
         } catch (e) {
@@ -43,13 +36,7 @@ module.exports = {
         try {
             const user = req.body;
 
-            const users = await findAllUsers();
-
-            if (users.find((oneUser) => oneUser.email === user.email)) {
-                throw new Error('This email is already registered.');
-            }
-
-            insertUser(user);
+            await insertUser(user);
 
             isUserLoggedIn = !isUserLoggedIn;
 
@@ -62,12 +49,6 @@ module.exports = {
     deleteUserById: (req, res) => {
         try {
             const { id } = req.params;
-
-            const user = findUserById(id);
-
-            if (!user) {
-                throw new Error('User with this email is not found');
-            }
 
             if (!isUserLoggedIn) {
                 throw new Error('User can\'t remove, he is not logged in.');

@@ -12,6 +12,16 @@ module.exports = {
         });
     },
 
+    findUserByEmail: (email) => {
+        const UserModel = db.getModel('User');
+
+        return UserModel.findAll({
+            where: {
+                email
+            }
+        });
+    },
+
     findUserById: (userId) => {
         const UserModel = db.getModel('User');
         const CarModel = db.getModel('Car');

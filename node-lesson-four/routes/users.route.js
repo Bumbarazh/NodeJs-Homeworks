@@ -7,21 +7,20 @@ const {
     updateExistUser
 } = require('../controllers/users.controller');
 const {
-    isUserAlreadyRegistered,
-    checkUserIdValidity,
-    checkUserBodyAndId
+    isUserBodyComplete,
+    checkUserIdValidity
 } = require('../middlewares/checkUsersValidity.middleware');
 
 const usersRoute = Router();
 
 usersRoute.get('/', getAllUsers);
 
-usersRoute.post('/', isUserAlreadyRegistered, registerUser);
+usersRoute.post('/', isUserBodyComplete, registerUser);
 
 usersRoute.get('/:id', checkUserIdValidity, getUserById);
 
 usersRoute.delete('/:id', checkUserIdValidity, deleteUserById);
 
-usersRoute.put('/:id', checkUserBodyAndId, updateExistUser);
+usersRoute.put('/:id', checkUserIdValidity, updateExistUser);
 
 module.exports = usersRoute;
