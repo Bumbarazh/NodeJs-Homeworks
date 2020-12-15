@@ -1,7 +1,6 @@
 const Joi = require('joi');
 
 const { MAX_AGE, MIN_AGE } = require('../../constants/constants');
-
 const { EMAIL, PASSWORD } = require('../../configs/regexp');
 
 module.exports = Joi.object({
