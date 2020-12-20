@@ -11,6 +11,15 @@ module.exports = {
             next(e);
         }
     },
+    getOneCarById: (req, res, next) => {
+        try {
+            const { car } = req;
+
+            res.json(car);
+        } catch (e) {
+            next(e);
+        }
+    },
     addNewCar: async (req, res, next) => {
         try {
             await carService.insertNewCar(req.body);

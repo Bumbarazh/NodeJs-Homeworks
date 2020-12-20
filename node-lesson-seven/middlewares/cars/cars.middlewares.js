@@ -88,6 +88,8 @@ module.exports = {
                 throw new ErrorHandler(PERMISSION_DENIED.message, PERMISSION_DENIED.code);
             }
 
+            req.car = car;
+
             next();
         } catch (e) {
             next(e);
