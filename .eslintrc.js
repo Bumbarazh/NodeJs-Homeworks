@@ -89,6 +89,7 @@ module.exports = {
         'no-new-func': 'error',
         'no-new-wrappers': 'error',
         'no-octal-escape': 'error',
+        'no-plusplus': 'off',
         'no-param-reassign': 'warn',
         'no-proto': 'error',
         'no-return-assign': 'error',

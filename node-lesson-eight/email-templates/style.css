@@ -1,0 +1,12 @@
+.footer {
+    color: mediumblue;
+    background-color: lightgray;
+}
+
+a {
+    color: black;
+}
+
+a:hover {
+    color: darkslateblue;
+}
