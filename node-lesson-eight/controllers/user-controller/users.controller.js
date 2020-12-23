@@ -53,7 +53,6 @@ module.exports = {
 
                 await fs.mkdir(photoDir, { recursive: true });
                 await avatar.mv(path.join(photoDir, photoName));
-
                 await userService.updateUserById(createUser.id, { avatar: finalPhotoPath });
             }
 

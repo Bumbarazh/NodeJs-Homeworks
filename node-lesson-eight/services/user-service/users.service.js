@@ -62,7 +62,7 @@ module.exports = {
     },
 
     updateUserById: (id, user) => {
-        const UserModel = db.getModel('User');
+        const UserModel = db.getModel(USER_MODEL_NAME);
 
         return UserModel.update(user, {
             where: { id },

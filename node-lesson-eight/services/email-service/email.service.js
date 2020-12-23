@@ -2,6 +2,8 @@ const mailer = require('nodemailer');
 const EmailTemplates = require('email-templates');
 const path = require('path');
 
+const { EMAIL_TEMPLATES_DIR } = require('../../constants/constants');
+
 const { EMAIL_ADDRESS, EMAIL_PASS, EMAIL_SERVICE } = require('../../configs/config');
 const templatesInfo = require('../../email-templates');
 
@@ -15,7 +17,7 @@ const transporter = mailer.createTransport({
 
 const emailTemplates = new EmailTemplates({
     views: {
-        root: path.join(process.cwd(), 'email-templates')
+        root: path.join(process.cwd(), EMAIL_TEMPLATES_DIR)
     }
 });
 

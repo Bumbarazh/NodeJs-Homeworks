@@ -12,12 +12,15 @@ module.exports = {
     USERS_TABLE_NAME: 'users',
     CARS_TABLE_NAME: 'cars',
     OAUTH_TABLE_NAME: 'o_auth',
+    DOCUMENT_TABLE_NAME: 'documents',
     ID: 'id',
     CASCADE: 'CASCADE',
 
     CAR_MODEL_NAME: 'Car',
     OAUTH_MODEL_NAME: 'O_Auth',
     USER_MODEL_NAME: 'User',
+    DOCUMENT_MODEL_NAME: 'Doc',
+    FILE_UPLOADED: 'File uploaded',
 
     AUTHORIZATION: 'Authorization',
     USER_IS_LOGGED_IN: 'User is already logged in',
@@ -41,6 +44,8 @@ module.exports = {
     MAX_FILES_LENGTH: 10,
 
     USER_DIR: 'user',
-    PHOTOS_DIR: 'photos',
-    PUBLIC_DIR: 'public'
+    FILES_DIR: 'files',
+    PUBLIC_DIR: 'public',
+    CAR_DIR: 'car',
+    EMAIL_TEMPLATES_DIR: 'email-templates'
 };

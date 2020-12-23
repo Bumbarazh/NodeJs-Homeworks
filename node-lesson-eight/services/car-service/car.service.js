@@ -1,5 +1,5 @@
 const db = require('../../dataBase').getInstance();
-const { CAR_MODEL_NAME } = require('../../constants/constants');
+const { CAR_MODEL_NAME, DOCUMENT_MODEL_NAME } = require('../../constants/constants');
 
 module.exports = {
     findCars: () => {
@@ -10,7 +10,7 @@ module.exports = {
     insertNewCar: (newCar) => {
         const CarModel = db.getModel(CAR_MODEL_NAME);
 
-        CarModel.create(newCar);
+        return CarModel.create(newCar);
     },
     findCarById: (id) => {
         const CarModel = db.getModel(CAR_MODEL_NAME);
@@ -38,6 +38,20 @@ module.exports = {
         CarModel.update(model, {
             where: {
                 id
+            }
+        });
+    },
+    insertCarFile: (file) => {
+        const DocModel = db.getModel(DOCUMENT_MODEL_NAME);
+
+        return DocModel.create(file);
+    },
+    removeCarFilesById: (id) => {
+        const DocModel = db.getModel(DOCUMENT_MODEL_NAME);
+
+        return DocModel.destroy({
+            where: {
+                car_id: id
             }
         });
     }

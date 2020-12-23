@@ -26,5 +26,12 @@ module.exports = (client, DataTypes) => {
         }
     );
 
+    const Doc = require('./Doc')(client, DataTypes);
+
+    Car.hasMany(Doc, {
+        foreignKey: 'car_id',
+        onDelete: 'cascade'
+    });
+
     return Car;
 };
