@@ -12,6 +12,7 @@
     "joi": "^17.3.0",
     "jsonwebtoken": "^8.5.1",
     "mysql2": "^2.2.5",
+    "node-cron": "^2.0.3",
     "nodemailer": "^6.4.17",
     "pug": "^3.0.0",
     "sequelize": "^6.3.5",
@@ -34,13 +35,13 @@
     "@types/fs-extra": "^9.0.5",
     "@types/joi": "^14.3.4",
     "@types/jsonwebtoken": "^8.5.0",
+    "@types/node-cron": "^2.0.3",
     "@types/nodemailer": "^6.4.0",
     "@types/sequelize": "^4.28.9"
   },
   "lint-staged": {
     "*.{js, json}": [
-      "eslint",
-      "git add"
+      "eslint"
     ]
   },
   "husky": {
