@@ -47,5 +47,6 @@ module.exports = {
     FILES_DIR: 'files',
     PUBLIC_DIR: 'public',
     CAR_DIR: 'car',
-    EMAIL_TEMPLATES_DIR: 'email-templates'
+    EMAIL_TEMPLATES_DIR: 'email-templates',
+    PHOTOS_DIR: 'photos'
 };

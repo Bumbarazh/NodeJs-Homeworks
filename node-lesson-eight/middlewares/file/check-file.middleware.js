@@ -57,19 +57,24 @@ module.exports = {
     },
     checkAvatarForUser: (req, res, next) => {
         try {
-            if (req.photos.length > 1) {
+            const { files } = req;
+            const allFiles = Object.values(files);
+
+            if (allFiles.length > 1) {
                 throw new ErrorHandler(ONLY_ONE_PHOTO.message, ONLY_ONE_PHOTO.code);
             }
 
-            const { photos: { mimetype, size } } = req;
+            for (let i = 0; i < allFiles.length; i++) {
+                const { mimetype, size } = allFiles[i];
 
-            if (PHOTO_MIMETYPES.includes(mimetype)) {
-                if (PHOTO_MAX_SIZE < size) {
-                    throw new ErrorHandler(TOO_BIG_FILE.message, TOO_BIG_FILE.code);
+                if (PHOTO_MIMETYPES.includes(mimetype)) {
+                    if (PHOTO_MAX_SIZE < size) {
+                        throw new ErrorHandler(TOO_BIG_FILE.message, TOO_BIG_FILE.code);
+                    }
+
+                    req.avatar = allFiles[i];
                 }
             }
-
-            [req.avatar] = req.photos;
 
             next();
         } catch (e) {
