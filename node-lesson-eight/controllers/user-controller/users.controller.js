@@ -84,6 +84,21 @@ module.exports = {
         try {
             const { nickname } = req.body;
             const { id } = req.params;
+            const { avatar } = req;
+
+            if (avatar) {
+                const pathWithoutPublic = path.join(USER_DIR, `${id}`, PHOTOS_DIR);
+                const pathForRemoveDir = path.join(USER_DIR, `${id}`);
+                const photoDir = path.join(process.cwd(), PUBLIC_DIR, pathWithoutPublic);
+                const fileFormat = avatar.name.split('.').pop();
+                const photoName = `${uuid}.${fileFormat}`;
+                const finalPhotoPath = path.join(pathWithoutPublic, photoName);
+
+                await fs.rmdir(pathForRemoveDir, { recursive: true });
+                await fs.mkdir(photoDir, { recursive: true });
+                await avatar.mv(path.join(photoDir, photoName));
+                await userService.updateUserById(id, { avatar: finalPhotoPath });
+            }
 
             await userService.updateUser(nickname, id);
 
