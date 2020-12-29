@@ -48,5 +48,6 @@ module.exports = {
     PUBLIC_DIR: 'public',
     CAR_DIR: 'car',
     EMAIL_TEMPLATES_DIR: 'email-templates',
-    PHOTOS_DIR: 'photos'
+    PHOTOS_DIR: 'photos',
+    refreshTokenTimeLife: 30 * 24 * 60 * 60 * 1000
 };

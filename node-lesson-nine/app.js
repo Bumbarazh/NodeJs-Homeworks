@@ -3,6 +3,7 @@ const fileUpload = require('express-fileupload');
 require('dotenv').config();
 const path = require('path');
 const db = require('./dataBase').getInstance();
+const cronJobRun = require('./cron-jobs');
 
 const app = express();
 
@@ -30,4 +31,5 @@ app.use('*', (err, req, res, next) => {
 
 app.listen(5000, () => {
     // console.log('App listen port 5000');
+    cronJobRun();
 });

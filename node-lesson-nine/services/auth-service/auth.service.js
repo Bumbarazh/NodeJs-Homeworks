@@ -1,6 +1,8 @@
+const { Op } = require('sequelize');
+
 const db = require('../../dataBase').getInstance();
 
-const { USER_MODEL_NAME, OAUTH_MODEL_NAME } = require('../../constants/constants');
+const { USER_MODEL_NAME, OAUTH_MODEL_NAME, refreshTokenTimeLife } = require('../../constants/constants');
 
 module.exports = {
     insertTokenPair: (tokenPair) => {
@@ -52,5 +54,27 @@ module.exports = {
             },
             transaction
         });
+    },
+    removeOldRefreshTokensAndGetCount: async () => {
+        const O_authModel = db.getModel(OAUTH_MODEL_NAME);
+
+        const { count } = await O_authModel.findAndCountAll({
+            where: {
+                created_At: {
+                    [Op.lt]: new Date(new Date() - refreshTokenTimeLife)
+                }
+            }
+        });
+
+        await O_authModel.destroy({
+            truncate: true,
+            where: {
+                created_At: {
+                    [Op.lt]: new Date(new Date() - refreshTokenTimeLife)
+                }
+            }
+        });
+
+        return count;
     }
 };
