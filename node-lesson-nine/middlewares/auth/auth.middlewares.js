@@ -127,6 +127,8 @@ module.exports = {
                 throw new ErrorHandler(NOT_VALID_TOKEN.message, NOT_VALID_TOKEN.code);
             }
 
+            req.user = userWithToken;
+
             next();
         } catch (e) {
             next(e);

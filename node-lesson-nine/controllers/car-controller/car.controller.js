@@ -2,13 +2,14 @@ const path = require('path');
 const fs = require('fs-extra').promises;
 const uuid = require('uuid').v1();
 
-const { carService } = require('../../services');
+const { carService, logService } = require('../../services');
 const {
     CAR_IS_CREATED,
     DELETED, CAR_DIR,
     FILES_DIR,
     PUBLIC_DIR,
-    FILE_UPLOADED
+    FILE_UPLOADED,
+    CAR_UPDATED
 } = require('../../constants/constants');
 const { transactionInstance } = require('../../dataBase').getInstance();
 
@@ -76,6 +77,11 @@ module.exports = {
             }
 
             await transaction.commit();
+            await logService.createLogs({
+                action: CAR_IS_CREATED,
+                time_of_action: new Date(),
+                user_id: createdCar.id
+            });
             res.json(CAR_IS_CREATED);
         } catch (e) {
             await transaction.rollback();
@@ -94,6 +100,11 @@ module.exports = {
             await carService.removeCarById(id, { transaction });
 
             await transaction.commit();
+            await logService.createLogs({
+                action: DELETED,
+                time_of_action: new Date(),
+                user_id: id
+            });
             res.json(DELETED);
         } catch (e) {
             await transaction.rollback();
@@ -106,6 +117,13 @@ module.exports = {
             const { model } = req.body;
 
             await carService.updateCar(model, id);
+
+            await logService.createLogs({
+                action: CAR_UPDATED,
+                time_of_action: new Date(),
+                user_id: id
+            });
+            next();
         } catch (e) {
             next(e);
         }

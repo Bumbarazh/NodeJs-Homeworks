@@ -8,10 +8,17 @@ const {
     CREATED,
     PHOTOS_DIR,
     PUBLIC_DIR,
-    USER_DIR
+    USER_DIR,
+    USER_CREATED,
+    USER_DELETED
 } = require('../../constants/constants');
 const { WELCOME, GOODBYE } = require('../../constants/email-actions.enum');
-const { userService, authService, emailService } = require('../../services');
+const {
+    userService,
+    authService,
+    emailService,
+    logService
+} = require('../../services');
 const { passwordHelper } = require('../../helpers');
 const { transactionInstance } = require('../../dataBase').getInstance();
 
@@ -62,8 +69,14 @@ module.exports = {
             }
 
             await emailService.sendMail(email, WELCOME, { userName: nickname });
+            await logService.createLogs({
+                action: USER_CREATED,
+                time_of_action: new Date(),
+                user_id: createUser.id
+            });
 
             await transaction.commit();
+
             res.json(CREATED);
         } catch (e) {
             await transaction.rollback();
@@ -84,6 +97,11 @@ module.exports = {
             await emailService.sendMail(email, GOODBYE, { userName: nickname });
 
             await transaction.commit();
+            await logService.createLogs({
+                action: USER_DELETED,
+                time_of_action: new Date(),
+                user_id: id
+            });
             res.json(DELETED);
         } catch (e) {
             await transaction.rollback();
@@ -120,6 +138,11 @@ module.exports = {
             await userService.updateUser(nickname, id, transaction);
 
             await transaction.commit();
+            await logService.createLogs({
+                action: USER_IS_UPDATED,
+                time_of_action: new Date(),
+                user_id: id
+            });
             res.json(USER_IS_UPDATED);
         } catch (e) {
             await transaction.rollback();

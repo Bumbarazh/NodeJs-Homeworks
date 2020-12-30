@@ -1,6 +1,6 @@
 const { tokenizer } = require('../../helpers');
-const { authService } = require('../../services');
-const { AUTHORIZATION } = require('../../constants/constants');
+const { authService, logService } = require('../../services');
+const { AUTHORIZATION, USER_IS_LOGGED_IN, USER_LOGGED_OUT } = require('../../constants/constants');
 const { errors: { NO_CONTENT } } = require('../../error');
 
 module.exports = {
@@ -11,6 +11,11 @@ module.exports = {
 
             await authService.insertTokenPair({ user_id: id, ...tokenPair });
 
+            await logService.createLogs({
+                action: USER_IS_LOGGED_IN,
+                time_of_action: new Date(),
+                user_id: id
+            });
             res.json(tokenPair);
         } catch (e) {
             next(e);
@@ -30,10 +35,16 @@ module.exports = {
     },
     logOutUser: async (req, res, next) => {
         try {
+            const { user } = req;
             const accessTokenForLogout = req.get(AUTHORIZATION);
 
             await authService.removeToken(accessTokenForLogout);
 
+            await logService.createLogs({
+                action: USER_LOGGED_OUT,
+                time_of_action: new Date(),
+                user_id: user.id
+            });
             res.sendStatus(NO_CONTENT);
         } catch (e) {
             next(e);

@@ -23,7 +23,7 @@ module.exports = {
     FILE_UPLOADED: 'File uploaded',
 
     AUTHORIZATION: 'Authorization',
-    USER_IS_LOGGED_IN: 'User is already logged in',
+    USER_IS_LOGGED_IN: 'User logged in',
     CAR_IS_CREATED: 'Car is Created',
 
     PHOTO_MAX_SIZE: 3 * 1024 * 1024,
@@ -49,5 +49,11 @@ module.exports = {
     CAR_DIR: 'car',
     EMAIL_TEMPLATES_DIR: 'email-templates',
     PHOTOS_DIR: 'photos',
-    refreshTokenTimeLife: 30 * 24 * 60 * 60 * 1000
+    refreshTokenTimeLife: 30 * 24 * 60 * 60 * 1000,
+
+    USER_CREATED: 'User created',
+    USER_DELETED: 'User deleted',
+    CAR_UPDATED: 'Car updated',
+    USER_LOGGED_OUT: 'User is logged out',
+
 };
